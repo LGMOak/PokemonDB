@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <body style="background-color:#343A40;">
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-danger">
+  <a class="navbar-brand" href="/">Opemon</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item light">
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+      </li>
+
+    </ul>
+    <form class="form-inline my-2 my-lg-0" method='post' action='/search'>
+      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" id="search" name="search">
+      <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Search</button>
+    </form>
+          <li class="nav-item">
+            <div class="col">
+          <form class="form-inline my-2 my-lg-0" method='get' action='/login'>
+      <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Login</button>
+    </form>
+      </li>
+  </div>
+</nav> 
+<title> Opemon db</title>
+<body>
+          {% for row in cursor  %}
+    <div class="album py-5 bg-dark">
+      <div class="container">
+        <!-- fetching data and setting up display -->
+
+         <div class="col-md-3">
+          <div class="card bg-dark text-white mb-4 border-warning shadow-sm">
+          <button type="button" class="btn btn-dark btn-lg" data-toggle="modal" data-target="#Modal"><img src ="/static/images/sprite/{{ row['pokedexID']  }}.png" alt="Image not Available"></button></div>
+          <!-- transforming image into button user can click that will add the pokemon to their individual caught list -->
+  </div>
+
+  <!-- Modal -->
+<div id="Modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-body modal-dark">
+        <p>Added to 'caught list'</p>
+      </div>
+      <div class="modal-footer modal-dark">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+    <div class="table-responsive-sm">
+      <table class="table table-striped table-dark border-primary">
+              <thead>
+                  <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Type 1</th>
+          <th>Type 2</th>
+          <th>Classification</th>
+          <th>Generation</th>
+          <th>Attack</th>
+          <th>Special Attack</th>
+          <th>Defense</th>
+          <th>Special Defense</th>
+          <th>Health</th>
+          <th>Height (m)</th>
+          <th>weight (kg)</th>
+      </tr>
+          </thead>
+          <tbody>
+              <tr>
+              <td>{{ row['pokedexID']  }}</td>    
+              <td>{{  row['name']  }}</td>
+              <td>{{  row['type1']  }}</td>
+              <td>{{  row['type2']  }}</td>
+              <td>{{  row['classfication']  }}</td>
+              <td>{{  row['Generation']  }}</td>
+              <td>{{  row['attack']  }}</td>
+              <td>{{  row['sp_attack']  }}</td>
+              <td>{{  row['defense']  }}</td>
+              <td>{{  row['sp_defense']  }}</td>
+              <td>{{  row['hp']  }}</td>
+                <td>{{  row['height_m']  }}</td>
+                <td>{{  row['weight_kg']  }}</td>
+                </div>
+              </tr>
+            </tbody>
+          </table>
+
+                </div>
+
+      <table class="table table-striped table-dark col-3">
+      <thead>
+         <tr>
+            <th scope="col">#</th>
+            <th scope="col">Ability</th>
+         </tr>
+      </thead>
+      <tbody>
+         <tr>
+            <th scope="row">1</th>
+            <td>{{ row['abilities1'] }}</td>
+         </tr>
+         {% if not row['abilities2'] == None %}
+         <tr>
+            <th scope="row">2</th>
+            <td>{{ row['abilities2'] }}</td>
+         </tr>
+         {% endif %}
+         {% if not row['abilities3'] == None %}
+         <tr>
+            <th scope="row">3</th>
+            <td>{{ row['abilities3'] }}</td>
+         </tr>
+         {% endif %}
+         {% if not row['abilities4'] == None %}
+         <tr>
+            <th scope="row">4</th>
+            <td>{{ row['abilities4'] }}</td>
+         </tr>
+         {% endif %}
+         {% if not row['abilities5'] == None %}
+         <tr>
+            <th scope="row">5</th>
+            <td>{{ row['abilities5'] }}</td>
+         </tr>
+         {% endif %}
+         {% if not row['abilities6'] == None %}
+         <tr>
+            <th scope="row">6</th>
+            <td>{{ row['abilities6'] }}</td>
+         </tr>
+         {% endif %}
+
+         {%  endfor  %}
+
+      </tbody>
+      </table>
+
+  
+  </body>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>  
